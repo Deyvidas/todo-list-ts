@@ -1,0 +1,71 @@
+*, ul, h3, div {
+  margin: 0px;
+  padding: 0px;
+}
+
+.todo_cards {
+  width: 100%;
+
+  tr {
+    vertical-align: top;
+  }
+}
+
+.todo_card {
+  margin: 0.5rem;
+  padding: 1rem;
+  padding-top: 0;
+  min-width: 33%;
+
+  border-radius: 15px;
+  border: 1px solid white;
+
+  td.todo_cards__aligner {
+    width: 33.33%;
+  }
+
+  .todo_card__title {
+    margin-block: 0.5rem;
+    text-align: center;
+  }
+
+  .todo_card__input {
+    display: flex;
+    margin-block: 0.5rem;
+
+    input {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      width: 90%;
+      border: 1px solid white;
+    }
+
+    button {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      width: 10%;
+      border: 1px solid white;
+    }
+  }
+  
+  .todo_card__tasks {
+    list-style-type: none;
+    margin-block: 0.5rem;
+
+    .todo_card__task_sep {
+      margin-inline: 0.5rem;
+    }
+  }
+
+  .todo_card__buttons {
+    text-align: center;
+
+    .todo_card__button {
+      border-radius: 15px;
+      width: 25%;
+      margin-inline: 0.5rem;
+      border: 1px solid white;
+      font-size: small;
+    }
+  }
+}
