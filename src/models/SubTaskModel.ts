@@ -1,19 +1,18 @@
-import TaskModel from "./TaskModel";
+import { v4 } from "uuid";
 
 export default class SubTaskModel {
-    id: number;
+    id: string;
     title: string;
     isDone: boolean;
-    owner: TaskModel;
 
-    constructor(id: number, title: string, isDone: boolean, owner: TaskModel) {
-        this.id = id;
+    constructor(title: string, isDone: boolean = false) {
+        this.id = v4();
         this.title = title;
         this.isDone = isDone;
-        this.owner = owner;
     }
 
-    deleteThis() {
-        this.owner.deleteSubTask(this.id);
+    changeStatus() {
+        // XXX IS IT REQUIRED???
+        this.isDone = !this.isDone;
     }
 }

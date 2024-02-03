@@ -1,29 +1,30 @@
+import { v4 } from "uuid";
 import SubTaskModel from "./SubTaskModel";
 
 export default class TaskModel {
-    id: number;
+    id: string;
     cardTitle: string;
     subTasks: Array<SubTaskModel>;
 
-    constructor(id: number, cardTitle: string) {
-        this.id = id;
+    constructor(cardTitle: string) {
+        this.id = v4();
         this.cardTitle = cardTitle;
         this.subTasks = [];
     }
 
-    addSubTask(subTask: SubTaskModel) {
+    createSubTask(subTask: SubTaskModel) {
         this.subTasks.push(subTask);
     }
 
-    addManySubTasks(subTasks: Array<SubTaskModel>) {
+    bulkCreateSubTasks(subTasks: Array<SubTaskModel>) {
         this.subTasks.push(...subTasks);
     }
 
-    getSubTasksWithStatus(isDone: boolean): Array<SubTaskModel> {
+    filterSubTasks(isDone: boolean): Array<SubTaskModel> {
         return this.subTasks.filter((t) => t.isDone === isDone);
     }
 
-    deleteSubTask(id: number) {
+    deleteSubTask(id: string) {
         this.subTasks = this.subTasks.filter((t) => t.id !== id);
     }
 }

@@ -1,20 +1,29 @@
+import { InputHTMLAttributes } from "react";
 import SubTaskModel from "../models/SubTaskModel";
 
-type SubTasksProps = {
+export type SubTasksProps = {
     subTask: SubTaskModel;
-    onClick: (subTask: SubTaskModel) => void;
+    onClickCheckbox: (subTask: SubTaskModel) => void;
+    onClickDelete: (subTask: SubTaskModel) => void;
 };
 
-export default function SubTaskElement({ subTask, onClick }: SubTasksProps) {
+export default function SubTaskElement(props: SubTasksProps) {
+    const inputProps: InputHTMLAttributes<HTMLInputElement> = {
+        type: "checkbox",
+        checked: props.subTask.isDone,
+        readOnly: true,
+        onClick: () => props.onClickCheckbox(props.subTask),
+    };
+
     return (
         <li className="task_card__subTask">
             <div className="task_card__subTask_main">
-                <input type="checkbox" checked={subTask.isDone} readOnly />
+                <input {...inputProps} />
                 <span className="task_card__subTask_sep"></span>
-                <span>{subTask.title}</span>
+                <span>{props.subTask.title}</span>
             </div>
             <div className="task_card__subTask_delete">
-                <button onClick={() => onClick(subTask)}>X</button>
+                <button onClick={() => props.onClickDelete(props.subTask)}>X</button>
             </div>
         </li>
     );
