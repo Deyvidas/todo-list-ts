@@ -1,10 +1,10 @@
-import { TodoCards } from "./TodoList";
 import { tasksTodo } from "./dataStorage";
+import TaskCardsContainer from "./components/TaskCardsContainer";
 
 export default function App() {
     return (
         <div className="App">
-            <TodoCards {...tasksTodo} />
+            <TaskCardsContainer tasks={tasksTodo.tasks} />
         </div>
     );
 }
