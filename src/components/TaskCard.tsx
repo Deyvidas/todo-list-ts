@@ -4,6 +4,7 @@ import SubTasksContainer, { ContainerProps } from "./SubTasksContainer";
 import TaskCardButton from "./TaskCardButton";
 import TaskCardInput, { TaskInputProps } from "./TaskCardInput";
 import TaskModel from "../models/TaskModel";
+import { ValidationError } from "../errors";
 
 type TaskCardProps = {
     task: TaskModel;
@@ -46,9 +47,16 @@ export default function TaskCard({ task }: TaskCardProps) {
     }
 
     function addNewTaskAfterEvent() {
-        const newSubTask = new SubTaskModel(taskInputValue);
-        task.createSubTask(newSubTask);
-        setTaskInputValue("");
+        try {
+            const newSubTask = new SubTaskModel(taskInputValue);
+            task.createSubTask(newSubTask);
+        } catch (e: any) {
+            if (e instanceof ValidationError) {
+                window.alert(e.message);
+            }
+        } finally {
+            setTaskInputValue("");
+        }
     }
 
     function onClickAddTaskButton() {
@@ -68,7 +76,7 @@ export default function TaskCard({ task }: TaskCardProps) {
         //prettier-ignore
         <td>
             <div className="task_card">
-                <h5 className="task_card__title">{task.cardTitle}</h5>
+                <h5 className="task_card__title">{task.title}</h5>
                 <TaskCardInput {...taskCardInputProps} />
                 <SubTasksContainer {...subTasksContainerProps}/>
                 <div className="task_card__buttons">

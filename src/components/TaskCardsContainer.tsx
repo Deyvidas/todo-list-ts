@@ -1,11 +1,14 @@
 import { ReactElement } from "react";
-import TaskModel from "../models/TaskModel";
 import TaskCard from "./TaskCard";
-import TasksListModel from "../models/TasksListModel";
+import TaskModel from "../models/TaskModel";
 
 type T = ReactElement<HTMLTableRowElement>;
 
-export default function TaskCardsContainer({ tasks }: TasksListModel) {
+type TasksContainerProps = {
+    tasks: Array<TaskModel>;
+};
+
+export default function TaskCardsContainer({ tasks }: TasksContainerProps) {
     if (tasks.length === 0) return <></>;
 
     return (

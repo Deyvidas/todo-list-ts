@@ -1,13 +1,10 @@
-import { v4 } from "uuid";
+import { BaseTaskModel } from "./BaseModels";
 
-export default class SubTaskModel {
-    id: string;
-    title: string;
+export default class SubTaskModel extends BaseTaskModel {
     isDone: boolean;
 
     constructor(title: string, isDone: boolean = false) {
-        this.id = v4();
-        this.title = title;
+        super(title);
         this.isDone = isDone;
     }
 
