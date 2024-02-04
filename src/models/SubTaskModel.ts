@@ -1,4 +1,4 @@
-import { BaseTaskModel } from "./BaseModels";
+import { BaseTaskModel } from './BaseModels';
 
 export default class SubTaskModel extends BaseTaskModel {
     isDone: boolean;

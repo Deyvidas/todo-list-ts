@@ -1,9 +1,10 @@
-import { tasksTodo } from "./dataStorage";
-import TaskCardsContainer from "./components/TaskCardsContainer";
+import TaskCardsContainer from './components/TaskCardsContainer';
+
+import { tasksTodo } from './dataStorage';
 
 export default function App() {
     return (
-        <div className="App">
+        <div className='App'>
             <TaskCardsContainer tasks={tasksTodo.tasks} />
         </div>
     );

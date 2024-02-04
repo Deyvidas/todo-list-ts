@@ -1,5 +1,6 @@
-import { InputHTMLAttributes } from "react";
-import SubTaskModel from "../models/SubTaskModel";
+import { InputHTMLAttributes } from 'react';
+
+import SubTaskModel from '../models/SubTaskModel';
 
 export type SubTasksProps = {
     subTask: SubTaskModel;
@@ -9,20 +10,20 @@ export type SubTasksProps = {
 
 export default function SubTaskElement(props: SubTasksProps) {
     const inputProps: InputHTMLAttributes<HTMLInputElement> = {
-        type: "checkbox",
+        type: 'checkbox',
         checked: props.subTask.isDone,
         readOnly: true,
         onClick: () => props.onClickCheckbox(props.subTask),
     };
 
     return (
-        <li className="task_card__subTask">
-            <div className="task_card__subTask_main">
+        <li className='task_card__subTask'>
+            <div className='task_card__subTask_main'>
                 <input {...inputProps} />
-                <span className="task_card__subTask_sep"></span>
+                <span className='task_card__subTask_sep'></span>
                 <span>{props.subTask.title}</span>
             </div>
-            <div className="task_card__subTask_delete">
+            <div className='task_card__subTask_delete'>
                 <button onClick={() => props.onClickDelete(props.subTask)}>X</button>
             </div>
         </li>

@@ -1,5 +1,6 @@
-import { v4 } from "uuid";
-import { ValidationError } from "../errors";
+import { v4 } from 'uuid';
+
+import { ValidationError } from '../errors';
 
 export default class BaseModel {
     id: string;
@@ -25,7 +26,7 @@ export class BaseTaskModel extends BaseModel {
     #validateAndGetTitle(title: string): string {
         title = title.trim();
         if (title.length === 0) {
-            throw new ValidationError("The title of the task must contain at least one non-whitespace character.") // prettier-ignore
+            throw new ValidationError('The title of the task must contain at least one non-whitespace character.') // prettier-ignore
         }
         return title;
     }

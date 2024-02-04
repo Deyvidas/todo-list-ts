@@ -1,4 +1,6 @@
-import { ChangeEvent, InputHTMLAttributes, KeyboardEvent } from "react";
+import { ChangeEvent } from 'react';
+import { InputHTMLAttributes } from 'react';
+import { KeyboardEvent } from 'react';
 
 export type TaskInputProps = {
     value: string;
@@ -9,15 +11,15 @@ export type TaskInputProps = {
 
 export default function TaskCardInput(props: TaskInputProps) {
     let inputProps: InputHTMLAttributes<HTMLInputElement> = {
-        type: "text",
+        type: 'text',
         value: props.value,
-        placeholder: "Input the name of new task to do",
+        placeholder: 'Input the name of new task to do',
         onChange: (event) => props.onChange(event),
         onKeyDown: (event) => props.onPressEnter(event),
     };
 
     return (
-        <div className="task_card__input">
+        <div className='task_card__input'>
             <input {...inputProps} />
             <button onClick={() => props.onClickBtn()}>+</button>
         </div>

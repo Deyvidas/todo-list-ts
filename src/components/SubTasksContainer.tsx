@@ -1,5 +1,5 @@
-import SubTaskModel from "../models/SubTaskModel";
-import SubTaskElement from "./SubTaskElement";
+import SubTaskElement from './SubTaskElement';
+import SubTaskModel from '../models/SubTaskModel';
 
 export type ContainerProps = {
     subTasks: Array<SubTaskModel>;
@@ -23,5 +23,5 @@ export default function SubTasksContainer(props: ContainerProps) {
         );
     }
 
-    return <ul className="task_card__subTasks">{props.subTasks.map(getSubTaskElement)}</ul>; // prettier-ignore
+    return <ul className='task_card__subTasks'>{props.subTasks.map(getSubTaskElement)}</ul>; // prettier-ignore
 }

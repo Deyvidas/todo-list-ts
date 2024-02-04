@@ -1,6 +1,7 @@
-import { ReactElement } from "react";
-import TaskCard from "./TaskCard";
-import TaskModel from "../models/TaskModel";
+import { ReactElement } from 'react';
+
+import TaskCard from './TaskCard';
+import TaskModel from '../models/TaskModel';
 
 type T = ReactElement<HTMLTableRowElement>;
 
@@ -12,7 +13,7 @@ export default function TaskCardsContainer({ tasks }: TasksContainerProps) {
     if (tasks.length === 0) return <></>;
 
     return (
-        <table className="tasks_cards">
+        <table className='tasks_cards'>
             <tbody>
                 <>{[...renderRowsWithTasks(tasks)]}</>
             </tbody>

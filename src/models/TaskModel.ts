@@ -1,5 +1,6 @@
-import { BaseTaskModel } from "./BaseModels";
-import SubTaskModel from "./SubTaskModel";
+import SubTaskModel from './SubTaskModel';
+
+import { BaseTaskModel } from './BaseModels';
 
 export default class TaskModel extends BaseTaskModel {
     subTasks: Array<SubTaskModel>;
