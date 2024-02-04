@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 
 import SubTaskModel from '../models/SubTaskModel';
@@ -9,17 +10,25 @@ export type SubTasksProps = {
 };
 
 export default function SubTaskElement(props: SubTasksProps) {
-    const inputProps: InputHTMLAttributes<HTMLInputElement> = {
+    let subTaskContainerClass = 'task_card__subTask_main';
+    if (props.subTask.isDone === true) {
+        subTaskContainerClass += ' is-done';
+    }
+
+    const subTaskDivProps: HTMLAttributes<HTMLDivElement> = {
+        className: subTaskContainerClass,
+        onClick: () => props.onClickCheckbox(props.subTask),
+    };
+    const subTaskCheckboxProps: InputHTMLAttributes<HTMLInputElement> = {
         type: 'checkbox',
         checked: props.subTask.isDone,
         readOnly: true,
-        onClick: () => props.onClickCheckbox(props.subTask),
     };
 
     return (
         <li className='task_card__subTask'>
-            <div className='task_card__subTask_main'>
-                <input {...inputProps} />
+            <div {...subTaskDivProps}>
+                <input {...subTaskCheckboxProps} />
                 <span className='task_card__subTask_sep'></span>
                 <span>{props.subTask.title}</span>
             </div>

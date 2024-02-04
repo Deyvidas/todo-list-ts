@@ -53,6 +53,7 @@
     .task_card__subTask {
       display: flex;
       border-bottom: 0.5px solid rgb(70, 70, 70);
+      cursor: default;
       
       .task_card__subTask_sep {
         margin-inline: 0.5rem;
@@ -60,6 +61,11 @@
       
       .task_card__subTask_main {
         width: 93%;
+      }
+
+      .task_card__subTask_main.is-done {
+        opacity: 50%;
+        text-decoration: line-through;
       }
   
       .task_card__subTask_delete {
