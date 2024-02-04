@@ -25,6 +25,13 @@ task3.bulkCreateSubTasks([
     new SubTaskModel('Redux', false),
 ]);
 
+let task4 = new TaskModel('Films to watch');
+task4.bulkCreateSubTasks([
+    new SubTaskModel('Terminator', true),
+    new SubTaskModel('XXX', false),
+    new SubTaskModel("Gentlemen's of fortune", true),
+]);
+
 export const tasksTodo2: TasksListModel = new TasksListModel([]);
 
-export const tasksTodo: TasksListModel = new TasksListModel([task1, task2, task3]);
+export const tasksTodo: TasksListModel = new TasksListModel([task1, task2, task4, task3]);

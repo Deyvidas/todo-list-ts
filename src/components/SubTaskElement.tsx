@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 
 import SubTaskModel from '../models/SubTaskModel';
@@ -24,6 +24,10 @@ export default function SubTaskElement(props: SubTasksProps) {
         checked: props.subTask.isDone,
         readOnly: true,
     };
+    const buttonDeleteProps: ButtonHTMLAttributes<HTMLButtonElement> = {
+        className: 'delete_button',
+        onClick: () => props.onClickDelete(props.subTask),
+    };
 
     return (
         <li className='task_card__subTask'>
@@ -33,7 +37,7 @@ export default function SubTaskElement(props: SubTasksProps) {
                 <span>{props.subTask.title}</span>
             </div>
             <div className='task_card__subTask_delete'>
-                <button onClick={() => props.onClickDelete(props.subTask)}>X</button>
+                <button {...buttonDeleteProps}>X</button>
             </div>
         </li>
     );

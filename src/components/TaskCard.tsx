@@ -97,14 +97,14 @@ export default function TaskCard({ task }: TaskCardProps) {
     }
 
     return (
-        //prettier-ignore
-        <td>
-            <div className='task_card'>
-                <h5 className='task_card__title'>{task.title}</h5>
-                <TaskCardInput {...taskCardInputProps} />
-                <SubTasksContainer {...subTasksContainerProps}/>
-                <TaskCardButtonsContainer {...taskCardButtonsProps}/>
+        <div className='task_card'>
+            <div className='task_card__title'>
+                <h5>{task.title}</h5>
+                <button className='delete_button'>X</button>
             </div>
-        </td>
+            <TaskCardInput {...taskCardInputProps} />
+            <SubTasksContainer {...subTasksContainerProps} />
+            <TaskCardButtonsContainer {...taskCardButtonsProps} />
+        </div>
     );
 }

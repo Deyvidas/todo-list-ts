@@ -1,40 +1,18 @@
-import { ReactElement } from 'react';
-
 import TaskCard from './TaskCard';
 import TaskModel from '../models/TaskModel';
-
-type T = ReactElement<HTMLTableRowElement>;
 
 type TasksContainerProps = {
     tasks: Array<TaskModel>;
 };
 
 export default function TaskCardsContainer({ tasks }: TasksContainerProps) {
-    if (tasks.length === 0) return <></>;
-
-    return (
-        <table className='tasks_cards'>
-            <tbody>
-                <>{[...renderRowsWithTasks(tasks)]}</>
-            </tbody>
-        </table>
-    );
-}
-
-function* renderRowsWithTasks(tasks: Array<TaskModel>): Generator<T> {
-    let row: Array<JSX.Element> = [<TaskCard key={tasks[0].id} task={tasks[0]} />];
-    let trAttrs = { key: 1 };
-
-    for (let i = 1; i < tasks.length; i++) {
-        const element = <TaskCard key={tasks[i].id} task={tasks[i]} />;
-        if (i % 3 === 0) {
-            yield <tr {...trAttrs}>{row}</tr>;
-            trAttrs.key++;
-            row = [element];
-        } else {
-            row.push(element);
-        }
+    function buildTaskCard(task: TaskModel) {
+        return (
+            <div key={task.id} className='column-3'>
+                <TaskCard task={task} />
+            </div>
+        );
     }
-    yield <tr {...trAttrs}>{row}</tr>;
-    trAttrs.key++;
+
+    return <>{tasks.map(buildTaskCard)}</>;
 }
