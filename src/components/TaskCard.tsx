@@ -27,9 +27,8 @@ export default function TaskCard({ task }: TaskCardProps) {
     };
 
     function onClickCheckbox(subTask: SubTaskModel) {
-        // TODO ON CLICK CHECKBOX MAKE DOUBLE CHANGE...
-        subTask.changeStatus();
-        setSubTasks(task.subTasks);
+        subTask.switchStatus(); // Changing an object attribute in an array is not the same as changing the array. React does not see the change.
+        setSubTasks([...task.subTasks]);
     }
 
     function onClickDelete(subTask: SubTaskModel) {

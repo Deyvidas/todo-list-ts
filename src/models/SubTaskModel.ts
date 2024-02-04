@@ -11,8 +11,7 @@ export default class SubTaskModel {
         this.isDone = isDone;
     }
 
-    changeStatus() {
-        // XXX IS IT REQUIRED???
+    switchStatus() {
         this.isDone = !this.isDone;
     }
 }
