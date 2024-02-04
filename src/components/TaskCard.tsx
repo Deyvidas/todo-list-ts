@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import { ChangeEvent } from 'react';
 import { KeyboardEvent } from 'react';
 import { useState } from 'react';
@@ -14,14 +15,20 @@ import { TaskCardButtonsProps } from './TaskCardButtonsContainer';
 import { TaskInputProps } from './TaskCardInput';
 import { ValidationError } from '../errors';
 
-type TaskCardProps = {
+export type TaskCardProps = {
+    onClickDeleteTaskCard: (task: TaskModel) => void;
     task: TaskModel;
 };
 
-export default function TaskCard({ task }: TaskCardProps) {
-    const [subTasks, setSubTasks] = useState<Array<SubTaskModel>>(task.subTasks);
+export default function TaskCard(props: TaskCardProps) {
+    const [subTasks, setSubTasks] = useState<Array<SubTaskModel>>(props.task.subTasks);
     const [taskInputValue, setTaskInputValue] = useState<string>('');
     const [activeFilterBtn, setActiveFilterBtn] = useState<filterType>('All');
+
+    const buttonDeleteTaskCardProps: ButtonHTMLAttributes<HTMLButtonElement> = {
+        onClick: () => props.onClickDeleteTaskCard(props.task),
+        className: 'delete_button',
+    };
 
     const taskCardInputProps: TaskInputProps = {
         value: taskInputValue,
@@ -43,27 +50,27 @@ export default function TaskCard({ task }: TaskCardProps) {
 
     function onClickCheckbox(subTask: SubTaskModel) {
         subTask.switchStatus(); // Changing an object attribute in an array is not the same as changing the array. React does not see the change.
-        setSubTasks([...task.subTasks]);
+        setSubTasks([...props.task.subTasks]);
     }
 
     function onClickDelete(subTask: SubTaskModel) {
-        task.deleteSubTask(subTask.id);
-        setSubTasks(task.subTasks);
+        props.task.deleteSubTask(subTask.id);
+        setSubTasks(props.task.subTasks);
     }
 
     function onClickFilter(btnText: filterType) {
         let subTasksToShow: Array<SubTaskModel>;
         switch (btnText) {
             case 'All':
-                subTasksToShow = task.subTasks;
+                subTasksToShow = props.task.subTasks;
                 setActiveFilterBtn('All');
                 break;
             case 'Active':
-                subTasksToShow = task.filterSubTasks(false);
+                subTasksToShow = props.task.filterSubTasks(false);
                 setActiveFilterBtn('Active');
                 break;
             case 'Completed':
-                subTasksToShow = task.filterSubTasks(true);
+                subTasksToShow = props.task.filterSubTasks(true);
                 setActiveFilterBtn('Completed');
                 break;
         }
@@ -73,7 +80,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     function addNewTaskAfterEvent() {
         try {
             const newSubTask = new SubTaskModel(taskInputValue);
-            task.createSubTask(newSubTask);
+            props.task.createSubTask(newSubTask);
         } catch (e: any) {
             if (e instanceof ValidationError) {
                 window.alert(e.message);
@@ -99,8 +106,8 @@ export default function TaskCard({ task }: TaskCardProps) {
     return (
         <div className='task_card'>
             <div className='task_card__title'>
-                <h5>{task.title}</h5>
-                <button className='delete_button'>X</button>
+                <h5>{props.task.title}</h5>
+                <button {...buttonDeleteTaskCardProps}>X</button>
             </div>
             <TaskCardInput {...taskCardInputProps} />
             <SubTasksContainer {...subTasksContainerProps} />

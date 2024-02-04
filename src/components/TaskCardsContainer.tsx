@@ -1,18 +1,26 @@
 import TaskCard from './TaskCard';
 import TaskModel from '../models/TaskModel';
 
-type TasksContainerProps = {
+import { TaskCardProps } from './TaskCard';
+
+export type TasksContainerProps = {
+    onClickDeleteTaskCard: (task: TaskModel) => void;
     tasks: Array<TaskModel>;
 };
 
-export default function TaskCardsContainer({ tasks }: TasksContainerProps) {
+export default function TaskCardsContainer(props: TasksContainerProps) {
     function buildTaskCard(task: TaskModel) {
+        const taskCardProps: TaskCardProps = {
+            onClickDeleteTaskCard: props.onClickDeleteTaskCard,
+            task: task,
+        };
+
         return (
             <div key={task.id} className='column-3'>
-                <TaskCard task={task} />
+                <TaskCard {...taskCardProps} />
             </div>
         );
     }
 
-    return <>{tasks.map(buildTaskCard)}</>;
+    return <>{props.tasks.map(buildTaskCard)}</>;
 }
