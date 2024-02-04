@@ -1,12 +1,23 @@
-type TaskCardButtonProps = {
-    text: string;
-    onClick: () => void;
+export type filterType = 'All' | 'Active' | 'Completed';
+
+export type TaskCardButtonProps = {
+    activeButton: filterType;
+    onClick: (btnText: filterType) => void;
 };
 
-export default function TaskCardButton({ text, onClick }: TaskCardButtonProps) {
+type TaskCardButtonPropsExtended = TaskCardButtonProps & {
+    text: filterType;
+};
+
+export default function TaskCardButton(props: TaskCardButtonPropsExtended) {
+    let className = 'task_card__button';
+    if (props.text === props.activeButton) {
+        className += ' active';
+    }
+
     return (
-        <button className="task_card__button" onClick={onClick}>
-            {text}
+        <button className={className} onClick={() => props.onClick(props.text)}>
+            {props.text}
         </button>
     );
 }
