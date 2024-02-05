@@ -7,10 +7,11 @@ import { useState } from 'react';
 import { ValidationError } from '../errors';
 
 export type TaskInputProps = {
+    className: string;
     addNewItemFunction: (inputValue: string) => void;
 };
 
-export default function TaskCardInput({ addNewItemFunction }: TaskInputProps) {
+export default function TaskCardInput(props: TaskInputProps) {
     const [inputValue, setInputValue] = useState<string>('');
 
     function onChangeInputHandler(event: ChangeEvent<HTMLInputElement>) {
@@ -27,7 +28,7 @@ export default function TaskCardInput({ addNewItemFunction }: TaskInputProps) {
 
     function addNewItem() {
         try {
-            addNewItemFunction(inputValue);
+            props.addNewItemFunction(inputValue);
         } catch (e: any) {
             if (e instanceof ValidationError) {
                 return window.alert(e.message);
@@ -51,7 +52,7 @@ export default function TaskCardInput({ addNewItemFunction }: TaskInputProps) {
     };
 
     return (
-        <div className='task_card__input'>
+        <div className={props.className}>
             <input {...inputProps} />
             <button {...buttonProps}>+</button>
         </div>

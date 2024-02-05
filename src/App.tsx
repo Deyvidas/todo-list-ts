@@ -31,6 +31,7 @@ export default function App({ tasksStorage }: AppProps) {
     };
 
     const taskCardInputProps: TaskInputProps = {
+        className: 'task_card__input main',
         addNewItemFunction: addNewTask,
     };
 

@@ -27,6 +27,7 @@ export default function TaskCard(props: TaskCardProps) {
     };
 
     const taskCardInputProps: TaskInputProps = {
+        className: 'task_card__input',
         addNewItemFunction: addNewSubtask,
     };
 

@@ -54,6 +54,10 @@
   }
 }
 
+.task_card__input.main {
+  margin-inline: 0.5rem;
+}
+
 .task_card {
   padding: 1rem;
   padding-top: 0;
