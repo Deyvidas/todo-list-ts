@@ -1,27 +1,59 @@
+import { ButtonHTMLAttributes } from 'react';
 import { ChangeEvent } from 'react';
 import { InputHTMLAttributes } from 'react';
 import { KeyboardEvent } from 'react';
+import { useState } from 'react';
+
+import { ValidationError } from '../errors';
 
 export type TaskInputProps = {
-    value: string;
-    onClickBtn: () => void;
-    onPressEnter: (event: KeyboardEvent<HTMLInputElement>) => void;
-    onChange: (value: ChangeEvent<HTMLInputElement>) => void;
+    addNewItemFunction: (inputValue: string) => void;
 };
 
-export default function TaskCardInput(props: TaskInputProps) {
-    let inputProps: InputHTMLAttributes<HTMLInputElement> = {
+export default function TaskCardInput({ addNewItemFunction }: TaskInputProps) {
+    const [inputValue, setInputValue] = useState<string>('');
+
+    function onChangeInputHandler(event: ChangeEvent<HTMLInputElement>) {
+        setInputValue(event.target.value);
+    }
+
+    function onClickButtonHandler() {
+        addNewItem();
+    }
+
+    function onKeyDownHandler(event: KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Enter') return addNewItem();
+    }
+
+    function addNewItem() {
+        try {
+            addNewItemFunction(inputValue);
+        } catch (e: any) {
+            if (e instanceof ValidationError) {
+                return window.alert(e.message);
+            }
+            throw e;
+        } finally {
+            setInputValue('');
+        }
+    }
+
+    const inputProps: InputHTMLAttributes<HTMLInputElement> = {
         type: 'text',
-        value: props.value,
+        value: inputValue,
         placeholder: 'Input the name of new task to do',
-        onChange: (event) => props.onChange(event),
-        onKeyDown: (event) => props.onPressEnter(event),
+        onChange: (event) => onChangeInputHandler(event),
+        onKeyDown: (event) => onKeyDownHandler(event),
+    };
+
+    const buttonProps: ButtonHTMLAttributes<HTMLButtonElement> = {
+        onClick: () => onClickButtonHandler(),
     };
 
     return (
         <div className='task_card__input'>
             <input {...inputProps} />
-            <button onClick={() => props.onClickBtn()}>+</button>
+            <button {...buttonProps}>+</button>
         </div>
     );
 }

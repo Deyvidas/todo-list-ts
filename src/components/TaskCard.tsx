@@ -1,6 +1,4 @@
 import { ButtonHTMLAttributes } from 'react';
-import { ChangeEvent } from 'react';
-import { KeyboardEvent } from 'react';
 import { useState } from 'react';
 
 import SubTaskModel from '../models/SubTaskModel';
@@ -13,7 +11,6 @@ import { ContainerProps } from './SubTasksContainer';
 import { filterType } from './TaskCardButton';
 import { TaskCardButtonsProps } from './TaskCardButtonsContainer';
 import { TaskInputProps } from './TaskCardInput';
-import { ValidationError } from '../errors';
 
 export type TaskCardProps = {
     onClickDeleteTaskCard: (task: TaskModel) => void;
@@ -22,7 +19,6 @@ export type TaskCardProps = {
 
 export default function TaskCard(props: TaskCardProps) {
     const [subTasks, setSubTasks] = useState<Array<SubTaskModel>>(props.task.subTasks);
-    const [taskInputValue, setTaskInputValue] = useState<string>('');
     const [activeFilterBtn, setActiveFilterBtn] = useState<filterType>('All');
 
     const buttonDeleteTaskCardProps: ButtonHTMLAttributes<HTMLButtonElement> = {
@@ -31,10 +27,7 @@ export default function TaskCard(props: TaskCardProps) {
     };
 
     const taskCardInputProps: TaskInputProps = {
-        value: taskInputValue,
-        onClickBtn: onClickAddTaskButton,
-        onPressEnter: onPressEnter,
-        onChange: onChangeInputValue,
+        addNewItemFunction: addNewSubtask,
     };
 
     const subTasksContainerProps: ContainerProps = {
@@ -47,6 +40,11 @@ export default function TaskCard(props: TaskCardProps) {
         activeButton: activeFilterBtn,
         onClick: onClickFilter,
     };
+
+    function addNewSubtask(title: string) {
+        props.task.createSubTask(new SubTaskModel(title));
+        setSubTasks([...props.task.subTasks]);
+    }
 
     function onClickCheckbox(subTask: SubTaskModel) {
         subTask.switchStatus(); // Changing an object attribute in an array is not the same as changing the array. React does not see the change.
@@ -75,32 +73,6 @@ export default function TaskCard(props: TaskCardProps) {
                 break;
         }
         setSubTasks(subTasksToShow);
-    }
-
-    function addNewTaskAfterEvent() {
-        try {
-            const newSubTask = new SubTaskModel(taskInputValue);
-            props.task.createSubTask(newSubTask);
-        } catch (e: any) {
-            if (e instanceof ValidationError) {
-                window.alert(e.message);
-            }
-        } finally {
-            setTaskInputValue('');
-        }
-    }
-
-    function onClickAddTaskButton() {
-        addNewTaskAfterEvent();
-    }
-
-    function onPressEnter(event: KeyboardEvent<HTMLInputElement>) {
-        if (event.key !== 'Enter') return;
-        addNewTaskAfterEvent();
-    }
-
-    function onChangeInputValue(event: ChangeEvent<HTMLInputElement>) {
-        setTaskInputValue(event.target.value);
     }
 
     return (
