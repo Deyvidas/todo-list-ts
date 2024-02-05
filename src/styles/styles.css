@@ -33,6 +33,27 @@
   padding: 0.5rem;
 }
 
+.task_card__input {
+  display: flex;
+  margin-block: 0.5rem;
+
+  input {
+    padding-right: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 90%;
+    border: 1px solid white;
+    text-align: right;
+  }
+
+  button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 10%;
+    border: 1px solid white;
+  }
+}
+
 .task_card {
   padding: 1rem;
   padding-top: 0;
@@ -55,27 +76,6 @@
     }
   }
 
-  .task_card__input {
-    display: flex;
-    margin-block: 0.5rem;
-
-    input {
-      padding-right: 5px;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      width: 90%;
-      border: 1px solid white;
-      text-align: right;
-    }
-
-    button {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      width: 10%;
-      border: 1px solid white;
-    }
-  }
-  
   .task_card__subTasks {
     list-style-type: none;
     margin-block: 0.5rem;

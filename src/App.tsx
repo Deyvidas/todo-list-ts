@@ -1,26 +1,42 @@
 import { useState } from 'react';
 
+import TaskCardInput from './components/TaskCardInput';
 import TaskCardsContainer from './components/TaskCardsContainer';
 import TaskModel from './models/TaskModel';
+import TasksStorageModel from './models/TasksListModel';
 
-import { tasksTodo } from './dataStorage';
+import { TaskInputProps } from './components/TaskCardInput';
 import { TasksContainerProps } from './components/TaskCardsContainer';
 
-export default function App() {
-    const [taskCards, setTaskCards] = useState(tasksTodo.tasks);
+export type AppProps = {
+    tasksStorage: TasksStorageModel;
+};
+
+export default function App({ tasksStorage }: AppProps) {
+    const [taskCards, setTaskCards] = useState(tasksStorage.tasks);
+
+    function onClickDeleteTaskCard(task: TaskModel) {
+        tasksStorage.tasks = tasksStorage.tasks.filter((t) => t.id !== task.id);
+        setTaskCards(tasksStorage.tasks);
+    }
+
+    function addNewTask(title: string) {
+        tasksStorage.createTask(new TaskModel(title));
+        setTaskCards([...tasksStorage.tasks]);
+    }
 
     const tasksContainerProps: TasksContainerProps = {
         onClickDeleteTaskCard: onClickDeleteTaskCard,
         tasks: taskCards,
     };
 
-    function onClickDeleteTaskCard(task: TaskModel) {
-        tasksTodo.tasks = tasksTodo.tasks.filter((t) => t.id !== task.id);
-        setTaskCards(tasksTodo.tasks);
-    }
+    const taskCardInputProps: TaskInputProps = {
+        addNewItemFunction: addNewTask,
+    };
 
     return (
         <div className='App'>
+            <TaskCardInput {...taskCardInputProps} />
             <TaskCardsContainer {...tasksContainerProps} />
         </div>
     );

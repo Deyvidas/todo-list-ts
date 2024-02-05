@@ -1,6 +1,6 @@
 import SubTaskModel from './models/SubTaskModel';
 import TaskModel from './models/TaskModel';
-import TasksListModel from './models/TasksListModel';
+import TasksStorageModel from './models/TasksListModel';
 
 let task1 = new TaskModel('Films to watch');
 task1.createSubTask(new SubTaskModel('Terminator', true));
@@ -32,6 +32,9 @@ task4.bulkCreateSubTasks([
     new SubTaskModel("Gentlemen's of fortune", true),
 ]);
 
-export const tasksTodo2: TasksListModel = new TasksListModel([]);
+export const tasksTodo2: TasksStorageModel = new TasksStorageModel();
 
-export const tasksTodo: TasksListModel = new TasksListModel([task1, task2, task4, task3]);
+export const tasksTodo: TasksStorageModel = new TasksStorageModel();
+tasksTodo.createTask(task1);
+tasksTodo.createTask(task2);
+tasksTodo.bulkCreateTask([task4, task3]);
