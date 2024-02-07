@@ -1,7 +1,7 @@
-import BaseModel from './BaseModels';
-import TaskModel from './TaskModel';
+import { BaseModel } from './BaseModels';
+import { TaskModel } from './TaskModel';
 
-export default class TasksStorageModel extends BaseModel {
+class TasksStorageModel extends BaseModel {
     tasks: Array<TaskModel>;
 
     constructor() {
@@ -25,3 +25,5 @@ export default class TasksStorageModel extends BaseModel {
         tasks.forEach((t) => this.createTask(t));
     }
 }
+
+export { TasksStorageModel };

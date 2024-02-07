@@ -1,6 +1,6 @@
 import { BaseTaskModel } from './BaseModels';
 
-export default class SubTaskModel extends BaseTaskModel {
+class SubTaskModel extends BaseTaskModel {
     isDone: boolean;
 
     constructor(title: string, isDone: boolean = false) {
@@ -12,3 +12,5 @@ export default class SubTaskModel extends BaseTaskModel {
         this.isDone = !this.isDone;
     }
 }
+
+export { SubTaskModel };

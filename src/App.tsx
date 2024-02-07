@@ -1,44 +1,44 @@
 import { useState } from 'react';
 
-import TaskCardInput from './components/TaskCardInput';
-import TaskCardsContainer from './components/TaskCardsContainer';
-import TaskModel from './models/TaskModel';
-import TasksStorageModel from './models/TasksListModel';
+import { CardsContainer } from './elements/CardsContainer';
+import { CardsContainerPropsType } from './elements/CardsContainer';
+import { InputWithAddBtn } from './elements/InputWitAddBtn';
+import { InputWithAddBtnPropsType } from './elements/InputWitAddBtn';
+import { TaskModel } from './models/TaskModel';
+import { TasksStorageModel } from './models/TasksListModel';
 
-import { TaskInputProps } from './components/TaskCardInput';
-import { TasksContainerProps } from './components/TaskCardsContainer';
-
-export type AppProps = {
+type AppPropsType = {
     tasksStorage: TasksStorageModel;
 };
 
-export default function App({ tasksStorage }: AppProps) {
+function App({ tasksStorage }: AppPropsType) {
     const [taskCards, setTaskCards] = useState(tasksStorage.tasks);
 
-    function onClickDeleteTaskCard(task: TaskModel) {
+    function deleteTaskList(task: TaskModel) {
         tasksStorage.tasks = tasksStorage.tasks.filter((t) => t.id !== task.id);
         setTaskCards(tasksStorage.tasks);
     }
 
-    function addNewTask(title: string) {
+    function addNewTaskList(title: string) {
         tasksStorage.createTask(new TaskModel(title));
         setTaskCards([...tasksStorage.tasks]);
     }
 
-    const tasksContainerProps: TasksContainerProps = {
-        onClickDeleteTaskCard: onClickDeleteTaskCard,
-        tasks: taskCards,
+    const InputWithAddBtnProps: InputWithAddBtnPropsType = {
+        placeholder: 'Enter the name of new tasks list',
+        addNewItem: addNewTaskList,
     };
-
-    const taskCardInputProps: TaskInputProps = {
-        className: 'task_card__input main',
-        addNewItemFunction: addNewTask,
+    const CardsContainerProps: CardsContainerPropsType = {
+        tasks: taskCards,
+        onClickDeleteCard: deleteTaskList,
     };
 
     return (
         <div className='App'>
-            <TaskCardInput {...taskCardInputProps} />
-            <TaskCardsContainer {...tasksContainerProps} />
+            <InputWithAddBtn {...InputWithAddBtnProps}></InputWithAddBtn>
+            <CardsContainer {...CardsContainerProps}></CardsContainer>
         </div>
     );
 }
+
+export { type AppPropsType, App };

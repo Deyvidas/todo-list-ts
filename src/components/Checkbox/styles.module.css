@@ -1,0 +1,44 @@
+.checkbox {
+    appearance: none;
+    display: flex;
+    align-self: center;
+    cursor: pointer;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    justify-content: center;
+
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+.checkbox:hover {
+    background-color: color-mix(in srgb, currentColor 0%, transparent);
+}
+.checkbox::before {
+    align-self: center;
+    width: 65%;
+    height: 65%;
+    transform: scale(0);
+    content: "";
+    clip-path: polygon(100% 24.03%, 48.59% 93.67%, 0.78% 58.37%, 18.43% 34.46%, 42.34% 52.1%, 76.09% 6.38%);
+    background-color: currentColor;
+}
+.checkbox:checked::before {
+    transform: scale(1);
+}
+
+
+.checkbox.red {
+    color: red
+}
+.checkbox.orange {
+    color: orangered;
+}
+.checkbox.green {
+    color: green;
+}
+.checkbox.blue {
+    color: blue;
+}

@@ -1,0 +1,35 @@
+.input {
+    width: 100%;
+    padding-inline: 0.5rem;
+    align-self: center;
+    cursor: text;
+
+    min-height: 1.5rem;
+    max-height: 1.5rem;
+    text-align: right;
+    font-size: medium;
+
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: currentColor;
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+.input:focus {
+    outline: none;
+    background-color: color-mix(in srgb, currentColor 0%, transparent);
+}
+
+
+.input.red {
+    color: red
+}
+.input.orange {
+    color: orangered;
+}
+.input.green {
+    color: green;
+}
+.input.blue {
+    color: blue;
+}

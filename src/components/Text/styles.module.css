@@ -1,0 +1,33 @@
+.text {
+    margin-block: 0%;
+    padding-inline: 0.75rem;
+    align-self: center;
+    cursor: text;
+
+    overflow-wrap: anywhere;
+    text-align: start;
+    line-height: 110%;
+}
+
+.text.bold {
+    font-weight: bold;
+}
+.text.strikethrough {
+    text-decoration-line: line-through;
+    text-decoration-style: solid;
+    text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+
+.text.red {
+    color: red
+}
+.text.orange {
+    color: orangered;
+}
+.text.green {
+    color: green;
+}
+.text.blue {
+    color: blue;
+}

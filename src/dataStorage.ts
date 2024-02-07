@@ -1,11 +1,13 @@
-import SubTaskModel from './models/SubTaskModel';
-import TaskModel from './models/TaskModel';
-import TasksStorageModel from './models/TasksListModel';
+import { SubTaskModel } from './models/SubTaskModel';
+import { TaskModel } from './models/TaskModel';
+import { TasksStorageModel } from './models/TasksListModel';
 
 let task1 = new TaskModel('Films to watch');
-task1.createSubTask(new SubTaskModel('Terminator', true));
-task1.createSubTask(new SubTaskModel('XXX', false));
-task1.createSubTask(new SubTaskModel('Gentlemen\'s of fortune', true)); // prettier-ignore
+task1.bulkCreateSubTasks([
+    new SubTaskModel('Terminator', true),
+    new SubTaskModel('XXX', false),
+    new SubTaskModel('Gentlemen\'s of fortune', true), //prettier-ignore
+]);
 
 let task2 = new TaskModel('To practice');
 task2.bulkCreateSubTasks([
@@ -16,25 +18,23 @@ task2.bulkCreateSubTasks([
     new SubTaskModel('Redux', false),
 ]);
 
-let task3 = new TaskModel('To practice');
+let task3 = new TaskModel('Task 1');
 task3.bulkCreateSubTasks([
-    new SubTaskModel('TypeScript', true),
-    new SubTaskModel('HTML', true),
-    new SubTaskModel('React', false),
-    new SubTaskModel('Python', true),
-    new SubTaskModel('Redux', false),
+    new SubTaskModel('task1.1', true),
+    new SubTaskModel('task1.2', true),
+    new SubTaskModel('task1.3', false),
+    new SubTaskModel('task1.4', true),
+    new SubTaskModel('task1.5', false),
 ]);
 
-let task4 = new TaskModel('Films to watch');
+let task4 = new TaskModel('Task 2');
 task4.bulkCreateSubTasks([
-    new SubTaskModel('Terminator', true),
-    new SubTaskModel('XXX', false),
-    new SubTaskModel("Gentlemen's of fortune", true),
+    new SubTaskModel('task2.1', true),
+    new SubTaskModel('task2.2', false),
+    new SubTaskModel('task2.3', true),
 ]);
 
-export const tasksTodo2: TasksStorageModel = new TasksStorageModel();
+const tasksTodo: TasksStorageModel = new TasksStorageModel();
+tasksTodo.bulkCreateTask([task1, task2, task3, task4]);
 
-export const tasksTodo: TasksStorageModel = new TasksStorageModel();
-tasksTodo.createTask(task1);
-tasksTodo.createTask(task2);
-tasksTodo.bulkCreateTask([task4, task3]);
+export { tasksTodo };

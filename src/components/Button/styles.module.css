@@ -1,0 +1,38 @@
+.button {
+    align-self: center;
+    cursor: pointer;
+
+    flex-grow: 1;
+    min-height: 1.5rem;
+    height: fit-content;
+
+    overflow-wrap: anywhere;
+    text-align: center;
+    font-size: small;
+
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: currentColor;
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+.button:hover {
+    background-color: color-mix(in srgb, currentColor 0%, transparent);
+}
+.button:active {
+    background-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+
+
+.button.red {
+    color: red
+}
+.button.orange {
+    color: orangered;
+}
+.button.green {
+    color: green;
+}
+.button.blue {
+    color: blue;
+}

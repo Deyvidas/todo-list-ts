@@ -1,8 +1,7 @@
-import SubTaskModel from './SubTaskModel';
-
 import { BaseTaskModel } from './BaseModels';
+import { SubTaskModel } from './SubTaskModel';
 
-export default class TaskModel extends BaseTaskModel {
+class TaskModel extends BaseTaskModel {
     subTasks: Array<SubTaskModel>;
 
     constructor(title: string) {
@@ -44,3 +43,5 @@ export default class TaskModel extends BaseTaskModel {
         this.subTasks = this.subTasks.filter((t) => t.id !== id);
     }
 }
+
+export { TaskModel };

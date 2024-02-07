@@ -1,0 +1,23 @@
+.grid {
+    width: 100%;
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 1rem;
+
+    >* {
+        margin: 0%;
+        height: fit-content;
+    }
+}
+.grid.col-1 {
+    grid-template-columns: repeat(1, calc(100%));
+}
+.grid.col-2 {
+    grid-template-columns: repeat(2, calc((100% - 1rem) / 2));
+}
+.grid.col-3 {
+    grid-template-columns: repeat(3, calc((100% - 2rem) / 3));
+}
+.grid.col-4 {
+    grid-template-columns: repeat(4, calc((100% - 3rem) / 4));
+}

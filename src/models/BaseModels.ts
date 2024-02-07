@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 import { ValidationError } from '../errors';
 
-export default class BaseModel {
+class BaseModel {
     id: string;
 
     constructor() {
@@ -10,7 +10,7 @@ export default class BaseModel {
     }
 }
 
-export class BaseTaskModel extends BaseModel {
+class BaseTaskModel extends BaseModel {
     title: string;
 
     constructor(title: string) {
@@ -31,3 +31,5 @@ export class BaseTaskModel extends BaseModel {
         return title;
     }
 }
+
+export { BaseModel, BaseTaskModel };
