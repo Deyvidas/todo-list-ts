@@ -29,4 +29,5 @@ function Input(props: InputPropsType) {
     return <input {...InputProps} type='text' />;
 }
 
-export { type InputPropsType, Input };
+export default React.memo(Input);
+export { type InputPropsType };

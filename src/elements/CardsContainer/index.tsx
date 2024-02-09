@@ -1,6 +1,7 @@
+import TaskCard from '../TaskCard';
+
 import { Grid } from '../../components/Grid';
 import { GridPropsType } from '../../components/Grid';
-import { TaskCard } from '../TaskCard';
 import { TaskCardPropsType } from '../TaskCard';
 import { TaskModel } from '../../models/TaskModel';
 

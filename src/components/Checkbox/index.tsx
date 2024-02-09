@@ -26,4 +26,5 @@ function Checkbox(props: CheckboxPropsType) {
     return <input {...InputProps} type='checkbox' />;
 }
 
-export { type CheckboxPropsType, Checkbox };
+export default React.memo(Checkbox);
+export { type CheckboxPropsType };

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Button } from '../../components/Button';
+import { useCallback } from 'react';
+import { useState } from 'react';
+
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+
 import { ButtonPropsType } from '../../components/Button';
-import { Input } from '../../components/Input';
 import { InputPropsType } from '../../components/Input';
 import { ValidationError } from '../../errors';
 
@@ -31,7 +35,7 @@ function InputWithAddBtn(props: InputWithAddBtnPropsType) {
         validateAndCreate();
     }
 
-    function validateAndCreate() {
+    const validateAndCreate = useCallback(() => {
         try {
             props.addNewItem(inputValue);
         } catch (e: any) {
@@ -42,18 +46,18 @@ function InputWithAddBtn(props: InputWithAddBtnPropsType) {
         } finally {
             setInputValue('');
         }
-    }
+    }, [props, inputValue]);
 
     const InputProps: InputPropsType = {
         classNames: ['blue'],
         placeholder: props.placeholder,
         value: inputValue,
-        onChange: onChangeHandler,
-        onKeyDown: onKeyDownHandler,
+        onChange: useCallback(onChangeHandler, []),
+        onKeyDown: useCallback(onKeyDownHandler, [validateAndCreate]),
     };
     const ButtonProps: ButtonPropsType = {
         classNames: ['blue'],
-        onClick: onClickHandler,
+        onClick: useCallback(onClickHandler, [validateAndCreate]),
     };
 
     return (
@@ -64,4 +68,5 @@ function InputWithAddBtn(props: InputWithAddBtnPropsType) {
     );
 }
 
-export { type InputWithAddBtnPropsType, InputWithAddBtn };
+export default React.memo(InputWithAddBtn);
+export { type InputWithAddBtnPropsType };

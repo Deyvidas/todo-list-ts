@@ -1,8 +1,13 @@
-import { Button } from '../../components/Button';
-import { ButtonPropsType } from '../../components/Button';
+import React from 'react';
+
 import { PropsWithChildren } from 'react';
+import { useCallback } from 'react';
+
+import Button from '../../components/Button';
+import Text from '../../components/Text';
+
+import { ButtonPropsType } from '../../components/Button';
 import { TaskModel } from '../../models/TaskModel';
-import { Text } from '../../components/Text';
 import { TextPropsType } from '../../components/Text';
 
 import styles from './styles.module.css';
@@ -24,7 +29,7 @@ function TaskListTitle(props: PropsWithChildren<TaskListTitlePropsType>) {
     };
     const ButtonProps: ButtonPropsType = {
         classNames: ['red'],
-        onClick: buttonClicked,
+        onClick: useCallback(buttonClicked, [props]),
     };
 
     return (
@@ -35,4 +40,5 @@ function TaskListTitle(props: PropsWithChildren<TaskListTitlePropsType>) {
     );
 }
 
-export { type TaskListTitlePropsType, TaskListTitle };
+export default React.memo(TaskListTitle);
+export { type TaskListTitlePropsType };

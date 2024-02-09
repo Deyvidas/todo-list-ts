@@ -1,5 +1,6 @@
+import TaskItemTitle from './TaskItemTitle';
+
 import { SubTaskModel } from '../models/SubTaskModel';
-import { TaskItemTitle } from './TaskItemTitle';
 import { TaskItemTitlePropsType } from './TaskItemTitle';
 
 type SubTasksContainerPropsType = {

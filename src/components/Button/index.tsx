@@ -23,4 +23,5 @@ function Button(props: React.PropsWithChildren<ButtonPropsType>) {
     return <button {...ButtonProps}>{props.children}</button>;
 }
 
-export { type ButtonPropsType, Button };
+export default React.memo(Button);
+export { type ButtonPropsType };

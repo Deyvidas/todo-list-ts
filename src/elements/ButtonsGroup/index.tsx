@@ -1,6 +1,10 @@
+import React from 'react';
+
+import { useCallback } from 'react';
 import { useState } from 'react';
 
-import { Button } from '../../components/Button';
+import Button from '../../components/Button';
+
 import { ButtonPropsType } from '../../components/Button';
 
 import styles from './styles.module.css';
@@ -10,6 +14,8 @@ type ButtonType = 'All' | 'Active' | 'Completed';
 type ButtonsGroupPropsType = {
     onClick: (buttonText: ButtonType) => void;
 };
+
+const ButtonElement = React.memo(ButtonElementC);
 
 function ButtonsGroup(props: ButtonsGroupPropsType) {
     const [activeButton, setActiveButton] = useState<ButtonType>('All');
@@ -21,7 +27,7 @@ function ButtonsGroup(props: ButtonsGroupPropsType) {
 
     const ButtonElementProps: ButtonElementPropsType = {
         activeButton: activeButton,
-        onClick: onClickHandler,
+        onClick: useCallback(onClickHandler, [props]),
     };
 
     return (
@@ -38,7 +44,7 @@ type ButtonElementPropsType = {
     onClick: (buttonType: ButtonType) => void;
 };
 
-function ButtonElement(props: ButtonElementPropsType & { text: ButtonType }) {
+function ButtonElementC(props: ButtonElementPropsType & { text: ButtonType }) {
     const isActive = props.activeButton === props.text;
 
     function onClick() {
@@ -47,10 +53,11 @@ function ButtonElement(props: ButtonElementPropsType & { text: ButtonType }) {
 
     const ButtonProps: ButtonPropsType = {
         classNames: isActive ? ['blue'] : undefined,
-        onClick: onClick,
+        onClick: useCallback(onClick, [props]),
     };
 
     return <Button {...ButtonProps}>{props.text}</Button>;
 }
 
-export { type ButtonType, type ButtonsGroupPropsType, ButtonsGroup };
+export default React.memo(ButtonsGroup);
+export { type ButtonType, type ButtonsGroupPropsType };

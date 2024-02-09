@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { useState } from 'react';
+
+import InputWithAddBtn from './elements/InputWitAddBtn';
 
 import { CardsContainer } from './elements/CardsContainer';
 import { CardsContainerPropsType } from './elements/CardsContainer';
-import { InputWithAddBtn } from './elements/InputWitAddBtn';
 import { InputWithAddBtnPropsType } from './elements/InputWitAddBtn';
 import { TaskModel } from './models/TaskModel';
 import { TasksStorageModel } from './models/TasksListModel';
@@ -26,11 +28,11 @@ function App({ tasksStorage }: AppPropsType) {
 
     const InputWithAddBtnProps: InputWithAddBtnPropsType = {
         placeholder: 'Enter the name of new tasks list',
-        addNewItem: addNewTaskList,
+        addNewItem: useCallback(addNewTaskList, [tasksStorage]),
     };
     const CardsContainerProps: CardsContainerPropsType = {
         tasks: taskCards,
-        onClickDeleteCard: deleteTaskList,
+        onClickDeleteCard: useCallback(deleteTaskList, [tasksStorage]),
     };
 
     return (

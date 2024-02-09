@@ -1,10 +1,16 @@
-import { Button } from '../../components/Button';
+import React from 'react';
+
+import { useCallback } from 'react';
+import { useState } from 'react';
+
+import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
+import Text from '../../components/Text';
+
 import { ButtonPropsType } from '../../components/Button';
-import { Checkbox } from '../../components/Checkbox';
 import { CheckboxPropsType } from '../../components/Checkbox';
 import { getCssClassName } from '../../getCssClass';
 import { SubTaskModel } from '../../models/SubTaskModel';
-import { Text } from '../../components/Text';
 import { TextPropsType } from '../../components/Text';
 
 import styles from './styles.module.css';
@@ -17,7 +23,7 @@ type TaskItemTitlePropsType = {
 };
 
 function TaskItemTitle(props: TaskItemTitlePropsType) {
-    const isDone = props.subTask.isDone;
+    const [isDone, setIsDone] = useState(props.subTask.isDone);
 
     let blockClassName: string = styles[defaultCssClass];
     if (props.subTask.isDone) {
@@ -26,6 +32,7 @@ function TaskItemTitle(props: TaskItemTitlePropsType) {
 
     function checkboxClicked() {
         props.onClickCheckbox(props.subTask);
+        setIsDone(!isDone);
     }
 
     function buttonClicked() {
@@ -35,7 +42,7 @@ function TaskItemTitle(props: TaskItemTitlePropsType) {
     const CheckboxProps: CheckboxPropsType = {
         checked: isDone,
         classNames: isDone ? ['green'] : ['orange'],
-        onClick: checkboxClicked,
+        onClick: useCallback(checkboxClicked, [props, isDone]),
     };
     const TextProps: TextPropsType = {
         tagName: 'p',
@@ -43,7 +50,7 @@ function TaskItemTitle(props: TaskItemTitlePropsType) {
     };
     const ButtonProps: ButtonPropsType = {
         classNames: ['red'],
-        onClick: buttonClicked,
+        onClick: useCallback(buttonClicked, [props]),
     };
 
     return (
@@ -55,4 +62,5 @@ function TaskItemTitle(props: TaskItemTitlePropsType) {
     );
 }
 
-export { type TaskItemTitlePropsType, TaskItemTitle };
+export default React.memo(TaskItemTitle);
+export { type TaskItemTitlePropsType };

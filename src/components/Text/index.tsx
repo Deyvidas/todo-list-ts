@@ -30,4 +30,5 @@ function Text(props: React.PropsWithChildren<TextPropsType>) {
     return React.createElement(props.tagName, { ...TextProps }, props.children);
 }
 
-export { type TextPropsType, type TextTagAvailable, Text };
+export default React.memo(Text);
+export { type TextPropsType, type TextTagAvailable };

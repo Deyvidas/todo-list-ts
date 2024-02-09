@@ -1,14 +1,18 @@
+import React from 'react';
+
+import { useCallback } from 'react';
 import { useState } from 'react';
 
-import { ButtonsGroup } from '../ButtonsGroup';
+import ButtonsGroup from '../ButtonsGroup';
+import InputWithAddBtn from '../InputWitAddBtn';
+import TaskListTitle from '../TaskListTitle';
+
 import { ButtonsGroupPropsType } from '../ButtonsGroup';
 import { ButtonType } from '../ButtonsGroup';
-import { InputWithAddBtn } from '../InputWitAddBtn';
 import { InputWithAddBtnPropsType } from '../InputWitAddBtn';
 import { SubTaskModel } from '../../models/SubTaskModel';
 import { SubTasksContainer } from '../SubTasksContainer';
 import { SubTasksContainerPropsType } from '../SubTasksContainer';
-import { TaskListTitle } from '../TaskListTitle';
 import { TaskListTitlePropsType } from '../TaskListTitle';
 import { TaskModel } from '../../models/TaskModel';
 
@@ -60,15 +64,15 @@ function TaskCard(props: TaskCardPropsType) {
     };
     const InputWithAddBtnProps: InputWithAddBtnPropsType = {
         placeholder: 'Enter the name of new tasks',
-        addNewItem: addNewSubtask,
+        addNewItem: useCallback(addNewSubtask, [props.task]),
     };
     const SubTasksContainerProps: SubTasksContainerPropsType = {
         subTasks: subTasks,
-        onClickCheckbox: onClickCheckbox,
-        onClickButton: onClickDelete,
+        onClickCheckbox: useCallback(onClickCheckbox, [props.task.subTasks]),
+        onClickButton: useCallback(onClickDelete, [props.task]),
     };
     const ButtonsGroupProps: ButtonsGroupPropsType = {
-        onClick: onClickFilter,
+        onClick: useCallback(onClickFilter, [props.task]),
     };
 
     return (
@@ -81,4 +85,5 @@ function TaskCard(props: TaskCardPropsType) {
     );
 }
 
-export { type TaskCardPropsType, TaskCard };
+export default React.memo(TaskCard);
+export { type TaskCardPropsType };
